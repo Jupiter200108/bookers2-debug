@@ -34,6 +34,11 @@
         </tr>
         <% end %>
       </table>
+      <div>
+        <%= form_with model: book_comments() do |f| %>
+          <%= f.text_field :comment %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
