@@ -17,9 +17,6 @@ class BooksController < ApplicationController
       b.favorites.where(created_at: from...to).size <=> 
       a.favorites.where(created_at: from...to).size
     }
-    unless ViewCount.find_by(user_id: current_user.id, book_id: @books.id)
-      current_user.view_counts.create(book_id: @books.id)
-    end
     @book = Book.new
   end
 
