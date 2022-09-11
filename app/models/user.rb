@@ -8,6 +8,10 @@ class User < ApplicationRecord
   has_many :book_comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   
+  has_many :user_rooms
+  has_many :chats
+  has_many :rooms, through: :user_rooms
+
 
   has_many :follower_users, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
@@ -18,24 +22,24 @@ class User < ApplicationRecord
 
   validates :name, length: { minimum: 2, maximum: 20 }, uniqueness: true
   validates :introduction, length: { maximum: 50 }
-  
-  
+
+
   def get_profile_image
     (profile_image.attached?) ? profile_image : 'no_image.jpg'
   end
-  
-  def follow(user_id)
+
+  def follow(user)
     follower_users.create(followed_id: user.id)
   end
 
-  def unfollow(user_id)
+  def unfollow(user)
     follower_users.find_by(followed_id: user.id).destroy
   end
 
   def following?(user)
     followings.include?(user)
   end
-  
+
   def self.search_for(content, method)
     if method == 'perfect'
       User.where(name: content)
