@@ -6,26 +6,18 @@
   </tr>
   <tr>
 	  <th>introduction</th>
-	  <th></th>
+	  <th><%= user.introduction %></th>
   </tr>
   <tr>
-	  <th>follows</th>
-	  <th>
-  	  <%= link_to user_followings_path(user.id) do %>
-  	    <%= user.followings.count %>
-  	  <% end %>
-	  </th>
+    <th>follows</th>
+    <th><%= link_to user.followings.count, user_followings_path(user) %></th>
   </tr>
   <tr>
-	  <th>followers</th>
-	  <th>
-	    <%= link_to user_followers_path(user.id) do %>
-	      <%= user.followers.count %>
-	    <% end %>
-	  </th>
+    <th>followers</th>
+    <th><%= link_to user.followers.count, user_followers_path(user) %></th>
   </tr>
 </table>
-
+　
 <div class='row'>
   <% if current_user != user %>
     <td><%= render "relationships/btn", user: user %></td>
