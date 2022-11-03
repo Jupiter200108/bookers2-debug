@@ -17,6 +17,7 @@ class BooksController < ApplicationController
       b.favorites.where(created_at: from...to).size <=>
       a.favorites.where(created_at: from...to).size
     }
+    @books = Book.all.order(params[:sort])
     @book = Book.new
   end
 
